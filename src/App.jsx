@@ -10,13 +10,14 @@ class App extends React.Component {
 
     this.state = {
       movies: null,
+      currentType: 1,
     };
   }
 
   //Virtual Movie Datums
   _getMovieData = async () => {
     const result = await axios.get(
-      "https://api.themoviedb.org/3/movie/popular?api_key=6f468133ad08eef8c7a50210567d8a1b"
+      `https://api.themoviedb.org/3/movie/popular?api_key=6f468133ad08eef8c7a50210567d8a1b`
     );
 
     this.setState((prevState) => {
@@ -24,6 +25,13 @@ class App extends React.Component {
         movies: result.data.results,
       };
     });
+  };
+  _typeBtnClickHandler = (value) => {
+    this.setState((prevState) => {
+      return { currentType: value };
+    });
+
+    this._getMovieData();
   };
 
   componentDidMount() {
@@ -33,6 +41,22 @@ class App extends React.Component {
   render() {
     return (
       <main className="main">
+        <div className="typeArea">
+          <button
+            className={this.state.currentType === 1 ? "active" : ""}
+            onClick={() => this._typeBtnClickHandler(1)}
+          >
+            인기 영화
+          </button>
+          <button
+            className={this.state.currentType === 2 ? "active" : ""}
+            onClick={() => this._typeBtnClickHandler(2)}
+          >
+            {" "}
+            현재 상영 영화
+          </button>
+        </div>
+
         <section className="content">
           {this.state.movies === null
             ? "LOADING"
