@@ -9,17 +9,17 @@ class MovieBox extends React.Component {
     return (
       <div className="movieBox">
         <div className="movieBox__left">
-          <img src={this.props.movie.poster} alt="poster" />
+          <img
+            src={`https://image.tmdb.org/t/p/w500${this.props.movie.poster_path}`}
+            alt="poster"
+          />
         </div>
         <div className="movieBox__right mr">
           <article className="mr__title">{this.props.movie.title}</article>
-          <article className="mr__score">⭐️ {this.props.movie.score}</article>
-          <article className="mr__summary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus,
-            numquam quae aperiam laudantium rem vitae cumque excepturi
-            quibusdam! Adipisci id facere, quibusdam illo recusandae natus
-            impedit maiores molestiae perspiciatis totam.
+          <article className="mr__score">
+            ⭐️ {this.props.movie.vote_average}
           </article>
+          <article className="mr__summary">{this.props.movie.overview}</article>
         </div>
       </div>
     );
